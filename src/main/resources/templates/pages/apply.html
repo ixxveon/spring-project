@@ -9,41 +9,7 @@
 </head>
 <body>
 
-  <!-- ==================== HEADER (PARTIAL:header START) ==================== -->
-  <!-- TH:REPLACE(~{_partials/header :: header}) -->
-  <header class="site-header" role="banner">
-    <div class="container">
-      <a href="/home.html" class="site-logo" aria-label="MeetHub 홈으로">
-        <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="2"/><circle cx="10" cy="12" r="2.5" fill="currentColor"/><circle cx="18" cy="12" r="2.5" fill="currentColor"/><path d="M9 18c0 0 2.5 3 5 3s5-3 5-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-        MeetHub
-      </a>
-      <nav class="site-nav" aria-label="메인 메뉴">
-        <a href="/home.html">홈</a>
-        <a href="/list.html">모임 목록</a>
-        <a href="/form.html">모임 등록</a>
-        <a href="/mypage.html">마이페이지</a>
-        <a href="/login.html">로그인</a>
-      </nav>
-      <div class="header-actions">
-        <button type="button" class="theme-toggle" data-action="theme-toggle" aria-label="다크모드 전환">
-          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-        </button>
-        <button type="button" class="nav-toggle" data-action="nav-toggle" aria-expanded="false" aria-controls="mobile-nav" aria-label="메뉴 열기">
-          <svg class="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-          <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        </button>
-      </div>
-    </div>
-    <nav id="mobile-nav" class="mobile-nav" aria-label="모바일 메뉴">
-      <a href="/home.html">홈</a>
-      <a href="/list.html">모임 목록</a>
-      <a href="/form.html">모임 등록</a>
-      <a href="/mypage.html">마이페이지</a>
-      <a href="/login.html">로그인</a>
-    </nav>
-  </header>
-  <!-- PARTIAL:header END -->
+<div th:replace="~{fragments/header :: header}"></div>
 
   <main>
     <div class="container">
