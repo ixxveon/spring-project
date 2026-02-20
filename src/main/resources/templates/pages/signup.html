@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>회원가입 — MeetHub</title>
+  <meta name="description" content="MeetHub에 가입하여 다양한 취미 모임에 참여하세요.">
+  <link rel="stylesheet" href="/static/css/app.css">
+</head>
+<body>
+
+  <!-- ==================== HEADER (PARTIAL:header START) ==================== -->
+  <!-- TH:REPLACE(~{_partials/header :: header}) -->
+  <header class="site-header" role="banner">
+    <div class="container">
+      <a href="/home.html" class="site-logo" aria-label="MeetHub 홈으로">
+        <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="2"/><circle cx="10" cy="12" r="2.5" fill="currentColor"/><circle cx="18" cy="12" r="2.5" fill="currentColor"/><path d="M9 18c0 0 2.5 3 5 3s5-3 5-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        MeetHub
+      </a>
+      <nav class="site-nav" aria-label="메인 메뉴">
+        <a href="/home.html">홈</a>
+        <a href="/list.html">모임 목록</a>
+        <a href="/form.html">모임 등록</a>
+        <a href="/mypage.html">마이페이지</a>
+        <a href="/login.html">로그인</a>
+      </nav>
+      <div class="header-actions">
+        <button type="button" class="theme-toggle" data-action="theme-toggle" aria-label="다크모드 전환">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button type="button" class="nav-toggle" data-action="nav-toggle" aria-expanded="false" aria-controls="mobile-nav" aria-label="메뉴 열기">
+          <svg class="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+    <nav id="mobile-nav" class="mobile-nav" aria-label="모바일 메뉴">
+      <a href="/home.html">홈</a>
+      <a href="/list.html">모임 목록</a>
+      <a href="/form.html">모임 등록</a>
+      <a href="/mypage.html">마이페이지</a>
+      <a href="/login.html">로그인</a>
+    </nav>
+  </header>
+  <!-- PARTIAL:header END -->
+
+  <main class="signup-page">
+    <div class="signup-card">
+      <div style="text-align:center;margin-bottom:var(--sp-4);">
+        <a href="/home.html" class="site-logo" style="justify-content:center;" aria-label="MeetHub 홈으로">
+          <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="2"/><circle cx="10" cy="12" r="2.5" fill="currentColor"/><circle cx="18" cy="12" r="2.5" fill="currentColor"/><path d="M9 18c0 0 2.5 3 5 3s5-3 5-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          MeetHub
+        </a>
+      </div>
+      <h1 class="signup-card-title">회원가입</h1>
+      <p class="signup-card-desc">MeetHub에 가입하고 취미 모임을 시작하세요.</p>
+
+      <!-- 서버 에러 영역 -->
+      <!-- TH:IF(signupError) -->
+      <div class="alert alert--error" style="margin-bottom:var(--sp-4);display:none;" role="alert">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+        <span class="alert-content"><!-- TH:TEXT(signupError) -->이미 사용 중인 이메일입니다.</span>
+        <button type="button" class="btn-dismiss" data-action="dismiss" aria-label="알림 닫기">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <!-- TH:FIELD(action) -->
+      <form action="#" method="post" class="form-stack" data-validate="form" aria-label="회원가입 폼">
+
+        <!-- 이름 -->
+        <div class="form-group" data-rules="required,min:2">
+          <label class="form-label" for="signup-name">이름 <span class="required" aria-label="필수">*</span></label>
+          <!-- TH:FIELD(name) -->
+          <input type="text" id="signup-name" name="name" class="form-input" placeholder="홍길동" autocomplete="name">
+          <span class="form-error" role="alert"></span>
+        </div>
+
+        <!-- 이메일 -->
+        <div class="form-group" data-rules="required,email">
+          <label class="form-label" for="signup-email">이메일 <span class="required" aria-label="필수">*</span></label>
+          <!-- TH:FIELD(email) -->
+          <input type="email" id="signup-email" name="email" class="form-input" placeholder="example@meethub.kr" autocomplete="email">
+          <span class="form-error" role="alert"></span>
+        </div>
+
+        <!-- 닉네임 -->
+        <div class="form-group" data-rules="required,min:2">
+          <label class="form-label" for="signup-nickname">닉네임 <span class="required" aria-label="필수">*</span></label>
+          <!-- TH:FIELD(nickname) -->
+          <input type="text" id="signup-nickname" name="nickname" class="form-input" placeholder="모임에서 사용할 닉네임" autocomplete="off">
+          <span class="form-hint">2자 이상, 다른 회원과 중복되지 않아야 합니다.</span>
+          <span class="form-error" role="alert"></span>
+        </div>
+
+        <!-- 비밀번호 -->
+        <div class="form-group" data-rules="required,min:8">
+          <label class="form-label" for="signup-password">비밀번호 <span class="required" aria-label="필수">*</span></label>
+          <div class="input-password-wrap">
+            <!-- TH:FIELD(password) -->
+            <input type="password" id="signup-password" name="password" class="form-input" placeholder="8자 이상, 영문/숫자/특수문자 포함" autocomplete="new-password">
+            <button type="button" class="btn-toggle-pw" data-action="toggle-password" aria-label="비밀번호 보기">
+              <svg class="icon-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              <svg class="icon-eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+            </button>
+          </div>
+          <!-- 비밀번호 강도 표시 -->
+          <div class="pw-strength" aria-live="polite">
+            <div class="pw-strength-bar"></div>
+            <div class="pw-strength-bar"></div>
+            <div class="pw-strength-bar"></div>
+          </div>
+          <div class="pw-strength-text" aria-live="polite"></div>
+          <span class="form-error" role="alert"></span>
+        </div>
+
+        <!-- 비밀번호 확인 -->
+        <div class="form-group" data-rules="required,min:8">
+          <label class="form-label" for="signup-password-confirm">비밀번호 확인 <span class="required" aria-label="필수">*</span></label>
+          <div class="input-password-wrap">
+            <!-- TH:FIELD(passwordConfirm) -->
+            <input type="password" id="signup-password-confirm" name="passwordConfirm" class="form-input" placeholder="비밀번호를 다시 입력하세요" autocomplete="new-password">
+            <button type="button" class="btn-toggle-pw" data-action="toggle-password" aria-label="비밀번호 보기">
+              <svg class="icon-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              <svg class="icon-eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+            </button>
+          </div>
+          <span class="form-error" role="alert"></span>
+        </div>
+
+        <!-- 관심 카테고리 (선택) -->
+        <div class="form-group">
+          <label class="form-label" for="signup-interests">관심 카테고리</label>
+          <!-- TH:FIELD(interests) -->
+          <select id="signup-interests" name="interests" class="form-select">
+            <option value="">선택하세요 (선택 사항)</option>
+            <!-- TH:REPEAT(categories) -->
+            <option value="outdoor">아웃도어</option>
+            <option value="sports">스포츠</option>
+            <option value="music">음악</option>
+            <option value="art">미술/공예</option>
+            <option value="cooking">요리</option>
+            <option value="reading">독서</option>
+            <option value="tech">테크/개발</option>
+            <option value="language">외국어</option>
+          </select>
+          <span class="form-hint">가입 후 마이페이지에서 변경할 수 있습니다.</span>
+        </div>
+
+        <!-- 이용약관 동의 -->
+        <div class="form-group" data-rules="required">
+          <label class="form-checkbox">
+            <input type="checkbox" id="signup-agree" name="agree" value="true">
+            <span><strong>이용약관</strong> 및 <strong>개인정보처리방침</strong>에 동의합니다. <span class="required" aria-label="필수">*</span></span>
+          </label>
+          <span class="form-error" role="alert"></span>
+        </div>
+
+        <!-- 가입 버튼 -->
+        <button type="submit" class="btn btn--primary btn--lg" style="width:100%;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+          가입하기
+        </button>
+
+      </form>
+
+      <div class="signup-footer">
+        이미 회원이신가요? <a href="/login.html">로그인</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- 이 페이지는 푸터를 의도적으로 최소화 -->
+  <footer style="text-align:center;padding:var(--sp-4);font-size:var(--fs-xs);color:var(--color-text-tertiary);" role="contentinfo">
+    &copy; 2026 MeetHub. All rights reserved.
+  </footer>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>

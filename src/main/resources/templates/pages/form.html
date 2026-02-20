@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>모임 등록 — MeetHub</title>
+  <meta name="description" content="새로운 취미 모임을 만들어 보세요. 간단한 정보 입력만으로 모집을 시작할 수 있습니다.">
+  <link rel="stylesheet" href="/static/css/app.css">
+</head>
+<body>
+
+  <!-- ==================== HEADER (PARTIAL:header START) ==================== -->
+  <!-- TH:REPLACE(~{_partials/header :: header}) -->
+  <header class="site-header" role="banner">
+    <div class="container">
+      <a href="/home.html" class="site-logo" aria-label="MeetHub 홈으로">
+        <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="2"/><circle cx="10" cy="12" r="2.5" fill="currentColor"/><circle cx="18" cy="12" r="2.5" fill="currentColor"/><path d="M9 18c0 0 2.5 3 5 3s5-3 5-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        MeetHub
+      </a>
+      <nav class="site-nav" aria-label="메인 메뉴">
+        <a href="/home.html">홈</a>
+        <a href="/list.html">모임 목록</a>
+        <a href="/form.html" aria-current="page">모임 등록</a>
+        <a href="/mypage.html">마이페이지</a>
+        <a href="/login.html">로그인</a>
+      </nav>
+      <div class="header-actions">
+        <button type="button" class="theme-toggle" data-action="theme-toggle" aria-label="다크모드 전환">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button type="button" class="nav-toggle" data-action="nav-toggle" aria-expanded="false" aria-controls="mobile-nav" aria-label="메뉴 열기">
+          <svg class="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+    <nav id="mobile-nav" class="mobile-nav" aria-label="모바일 메뉴">
+      <a href="/home.html">홈</a>
+      <a href="/list.html">모임 목록</a>
+      <a href="/form.html" aria-current="page">모임 등록</a>
+      <a href="/mypage.html">마이페이지</a>
+      <a href="/login.html">로그인</a>
+    </nav>
+  </header>
+  <!-- PARTIAL:header END -->
+
+  <main>
+    <div class="container">
+      <div class="form-page">
+        <!-- TH:IF(isEdit) -->
+        <h1 class="form-page-title">새 모임 등록</h1>
+        <p class="form-page-desc">모임 정보를 입력하고 모집을 시작하세요. <span class="text-sm" style="color:var(--color-error);">*</span> 표시는 필수 항목입니다.</p>
+
+        <!-- TH:FIELD(action) — form action URL -->
+        <form action="#" method="post" class="form-stack" data-validate="form" aria-label="모임 등록 폼">
+
+          <!-- 모임명 -->
+          <div class="form-group" data-rules="required,min:2">
+            <label class="form-label" for="title">모임명 <span class="required" aria-label="필수">*</span></label>
+            <!-- TH:FIELD(title) -->
+            <input type="text" id="title" name="title" class="form-input" placeholder="예: 주말 북한산 트레킹 모임" autocomplete="off">
+            <span class="form-error" role="alert"></span>
+          </div>
+
+          <!-- 카테고리 & 지역 -->
+          <div class="form-row">
+            <div class="form-group" data-rules="required">
+              <label class="form-label" for="category">카테고리 <span class="required" aria-label="필수">*</span></label>
+              <!-- TH:FIELD(category) -->
+              <select id="category" name="category" class="form-select">
+                <option value="">선택하세요</option>
+                <!-- TH:REPEAT(categories) -->
+                <option value="outdoor">아웃도어</option>
+                <option value="sports">스포츠</option>
+                <option value="music">음악</option>
+                <option value="art">미술/공예</option>
+                <option value="cooking">요리</option>
+                <option value="reading">독서</option>
+                <option value="tech">테크/개발</option>
+                <option value="language">외국어</option>
+              </select>
+              <span class="form-error" role="alert"></span>
+            </div>
+            <div class="form-group" data-rules="required">
+              <label class="form-label" for="region">지역 <span class="required" aria-label="필수">*</span></label>
+              <!-- TH:FIELD(region) -->
+              <select id="region" name="region" class="form-select">
+                <option value="">선택하세요</option>
+                <!-- TH:REPEAT(regions) -->
+                <option value="seoul">서울</option>
+                <option value="gyeonggi">경기</option>
+                <option value="busan">부산</option>
+                <option value="daegu">대구</option>
+                <option value="incheon">인천</option>
+                <option value="daejeon">대전</option>
+                <option value="gwangju">광주</option>
+                <option value="jeju">제주</option>
+              </select>
+              <span class="form-error" role="alert"></span>
+            </div>
+          </div>
+
+          <!-- 상세 장소 -->
+          <div class="form-group" data-rules="required">
+            <label class="form-label" for="location">상세 장소 <span class="required" aria-label="필수">*</span></label>
+            <!-- TH:FIELD(location) -->
+            <input type="text" id="location" name="location" class="form-input" placeholder="예: 서울 은평구 진관동 북한산국립공원">
+            <span class="form-hint">참여자가 쉽게 찾을 수 있도록 구체적으로 작성해 주세요.</span>
+            <span class="form-error" role="alert"></span>
+          </div>
+
+          <!-- 소개/설명 -->
+          <div class="form-group" data-rules="required,min:10">
+            <label class="form-label" for="description">모임 소개 <span class="required" aria-label="필수">*</span></label>
+            <!-- TH:FIELD(description) -->
+            <textarea id="description" name="description" class="form-textarea" rows="6" placeholder="모임에 대해 자세히 소개해 주세요. 어떤 활동을 하는지, 준비물은 무엇인지 등을 적으면 좋아요."></textarea>
+            <span class="form-hint">최소 10자 이상 작성해 주세요.</span>
+            <span class="form-error" role="alert"></span>
+          </div>
+
+          <!-- 일정 -->
+          <div class="form-row">
+            <div class="form-group" data-rules="required">
+              <label class="form-label" for="start-date">시작 일시 <span class="required" aria-label="필수">*</span></label>
+              <!-- TH:FIELD(startDate) -->
+              <input type="datetime-local" id="start-date" name="startDate" class="form-input">
+              <span class="form-error" role="alert"></span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="end-date">종료 일시</label>
+              <!-- TH:FIELD(endDate) -->
+              <input type="datetime-local" id="end-date" name="endDate" class="form-input">
+              <span class="form-hint">선택 사항입니다.</span>
+            </div>
+          </div>
+
+          <!-- 모집 인원 -->
+          <div class="form-group" data-rules="required">
+            <label class="form-label" for="max-count">모집 인원 <span class="required" aria-label="필수">*</span></label>
+            <!-- TH:FIELD(maxCount) -->
+            <input type="number" id="max-count" name="maxCount" class="form-input" min="2" max="100" placeholder="예: 15">
+            <span class="form-hint">최소 2명부터 최대 100명까지 설정할 수 있습니다.</span>
+            <span class="form-error" role="alert"></span>
+          </div>
+
+          <!-- 서버 에러 영역 -->
+          <!-- TH:IF(globalError) -->
+          <div class="alert alert--error" role="alert" style="display:none;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+            <span class="alert-content"><!-- TH:TEXT(globalError) -->서버 오류 메시지가 여기에 표시됩니다.</span>
+            <button type="button" class="btn-dismiss" data-action="dismiss" aria-label="알림 닫기">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+
+          <!-- 버튼 -->
+          <div class="form-actions">
+            <button type="submit" class="btn btn--primary btn--lg">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              <!-- TH:IF(isEdit) -->
+              등록하기
+            </button>
+            <a href="/list.html" class="btn btn--secondary btn--lg">취소</a>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <!-- ==================== FOOTER (PARTIAL:footer START) ==================== -->
+  <!-- TH:REPLACE(~{_partials/footer :: footer}) -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="/home.html" class="site-logo" aria-label="MeetHub 홈으로">
+            <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="2"/><circle cx="10" cy="12" r="2.5" fill="currentColor"/><circle cx="18" cy="12" r="2.5" fill="currentColor"/><path d="M9 18c0 0 2.5 3 5 3s5-3 5-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            MeetHub
+          </a>
+          <p>취미 모임을 쉽고 빠르게. 함께하는 즐거움을 MeetHub에서 시작하세요.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-links-group">
+            <h4>서비스</h4>
+            <a href="/list.html">모임 목록</a>
+            <a href="/form.html">모임 등록</a>
+            <a href="#">이용 가이드</a>
+          </div>
+          <div class="footer-links-group">
+            <h4>지원</h4>
+            <a href="#">자주 묻는 질문</a>
+            <a href="#">문의하기</a>
+            <a href="#">이용약관</a>
+            <a href="#">개인정보처리방침</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">&copy; 2026 MeetHub. All rights reserved.</div>
+    </div>
+  </footer>
+  <!-- PARTIAL:footer END -->
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
