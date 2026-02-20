@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>마이페이지 — MeetHub</title>
+  <meta name="description" content="내 프로필과 참여 모임을 관리하세요.">
+  <link rel="stylesheet" href="/static/css/app.css">
+</head>
+<body>
+
+ <div th:replace="~{fragments/header :: header}"></div>
+
+  <main>
+    <div class="container">
+      <!-- ==================== PROFILE HEADER ==================== -->
+      <section class="mypage-header">
+        <div class="mypage-profile">
+          <!-- TH:TEXT(user.initial) -->
+          <div class="mypage-avatar" aria-hidden="true">김</div>
+          <div class="mypage-info">
+            <!-- TH:TEXT(user.nickname) -->
+            <h1>산길러버</h1>
+            <!-- TH:TEXT(user.email) -->
+            <p>sungil@meethub.kr</p>
+            <div class="mypage-stats">
+              <div class="mypage-stat">
+                <!-- TH:TEXT(user.hostedCount) -->
+                <div class="mypage-stat-value">3</div>
+                <div class="mypage-stat-label">개설 모임</div>
+              </div>
+              <div class="mypage-stat">
+                <!-- TH:TEXT(user.joinedCount) -->
+                <div class="mypage-stat-value">7</div>
+                <div class="mypage-stat-label">참여 모임</div>
+              </div>
+              <div class="mypage-stat">
+                <!-- TH:TEXT(user.joinDate) -->
+                <div class="mypage-stat-value" style="font-size:var(--fs-sm);color:var(--color-text-secondary);">2025.08</div>
+                <div class="mypage-stat-label">가입일</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== TABS ==================== -->
+      <section aria-label="마이페이지 상세">
+        <div role="tablist" aria-label="마이페이지 탭">
+          <button class="tab-btn" role="tab" aria-selected="true" aria-controls="panel-my-meetings" id="tab-my-meetings" tabindex="0">참여 모임</button>
+          <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-my-hosted" id="tab-my-hosted" tabindex="-1">개설 모임</button>
+          <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-my-profile" id="tab-my-profile" tabindex="-1">프로필 수정</button>
+        </div>
+
+        <!-- ==================== Panel: 참여 모임 ==================== -->
+        <div class="tab-panel is-active" role="tabpanel" id="panel-my-meetings" aria-labelledby="tab-my-meetings">
+          <div class="mypage-section">
+            <h2 class="mypage-section-title">참여 중인 모임</h2>
+            <!-- TH:REPEAT(joinedMeetings) -->
+
+            <!-- 참여 모임 1 -->
+            <div class="mypage-meeting">
+              <div class="mypage-meeting-img" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:24px;height:24px;" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div class="mypage-meeting-body">
+                <div class="mypage-meeting-title">
+                  <a href="/detail.html"><!-- TH:TEXT(meeting.title) -->주말 북한산 트레킹 모임</a>
+                </div>
+                <div class="mypage-meeting-meta">
+                  <span class="badge badge--open" style="font-size:10px;">모집중</span>
+                  <span>서울 은평구</span>
+                  <span>2026.03.01</span>
+                  <span>8/15명</span>
+                </div>
+              </div>
+              <div class="mypage-meeting-actions">
+                <a href="/detail.html" class="btn btn--secondary btn--sm">상세보기</a>
+                <!-- TH:IF(canCancel) -->
+                <button type="button" class="btn btn--ghost btn--sm" style="color:var(--color-error);">참여 취소</button>
+              </div>
+            </div>
+
+            <!-- 참여 모임 2 -->
+            <div class="mypage-meeting">
+              <div class="mypage-meeting-img" style="background:linear-gradient(135deg,#E0E7FF,var(--color-bg-tertiary));" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:24px;height:24px;" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+              </div>
+              <div class="mypage-meeting-body">
+                <div class="mypage-meeting-title">
+                  <a href="/detail.html"><!-- TH:TEXT(meeting.title) -->주말 사이드 프로젝트 모임</a>
+                </div>
+                <div class="mypage-meeting-meta">
+                  <span class="badge badge--open" style="font-size:10px;">모집중</span>
+                  <span>서울 성동구</span>
+                  <span>2026.03.08</span>
+                  <span>7/10명</span>
+                </div>
+              </div>
+              <div class="mypage-meeting-actions">
+                <a href="/detail.html" class="btn btn--secondary btn--sm">상세보기</a>
+                <button type="button" class="btn btn--ghost btn--sm" style="color:var(--color-error);">참여 취소</button>
+              </div>
+            </div>
+
+            <!-- 참여 모임 3 -->
+            <div class="mypage-meeting">
+              <div class="mypage-meeting-img" style="background:linear-gradient(135deg,var(--color-success-light),var(--color-bg-tertiary));" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:24px;height:24px;" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+              </div>
+              <div class="mypage-meeting-body">
+                <div class="mypage-meeting-title">
+                  <a href="/detail.html"><!-- TH:TEXT(meeting.title) -->월간 독서토론 모임</a>
+                </div>
+                <div class="mypage-meeting-meta">
+                  <span class="badge badge--open" style="font-size:10px;">모집중</span>
+                  <span>경기 성남시</span>
+                  <span>2026.03.10</span>
+                  <span>3/8명</span>
+                </div>
+              </div>
+              <div class="mypage-meeting-actions">
+                <a href="/detail.html" class="btn btn--secondary btn--sm">상세보기</a>
+                <button type="button" class="btn btn--ghost btn--sm" style="color:var(--color-error);">참여 취소</button>
+              </div>
+            </div>
+            <!-- TH:REPEAT END -->
+
+            <div style="margin-top:var(--sp-4);text-align:center;">
+              <a href="/list.html" class="btn btn--secondary">더 많은 모임 찾아보기</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== Panel: 개설 모임 ==================== -->
+        <div class="tab-panel" role="tabpanel" id="panel-my-hosted" aria-labelledby="tab-my-hosted">
+          <div class="mypage-section">
+            <h2 class="mypage-section-title">내가 개설한 모임</h2>
+            <!-- TH:REPEAT(hostedMeetings) -->
+
+            <!-- 개설 모임 1 -->
+            <div class="mypage-meeting">
+              <div class="mypage-meeting-img" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:24px;height:24px;" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div class="mypage-meeting-body">
+                <div class="mypage-meeting-title">
+                  <a href="/detail.html"><!-- TH:TEXT(meeting.title) -->주말 북한산 트레킹 모임</a>
+                </div>
+                <div class="mypage-meeting-meta">
+                  <span class="badge badge--open" style="font-size:10px;">모집중</span>
+                  <span>서울 은평구</span>
+                  <span>신청 8명 / 정원 15명</span>
+                </div>
+              </div>
+              <div class="mypage-meeting-actions">
+                <a href="/form.html" class="btn btn--secondary btn--sm">수정</a>
+                <button type="button" class="btn btn--ghost btn--sm" style="color:var(--color-error);">모집 마감</button>
+              </div>
+            </div>
+
+            <!-- 개설 모임 2 -->
+            <div class="mypage-meeting">
+              <div class="mypage-meeting-img" style="background:linear-gradient(135deg,var(--color-warning-light),var(--color-bg-tertiary));" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:24px;height:24px;" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+              </div>
+              <div class="mypage-meeting-body">
+                <div class="mypage-meeting-title">
+                  <a href="/detail.html"><!-- TH:TEXT(meeting.title) -->초보자 요가 클래스</a>
+                </div>
+                <div class="mypage-meeting-meta">
+                  <span class="badge badge--closed" style="font-size:10px;">마감</span>
+                  <span>서울 강남구</span>
+                  <span>신청 10명 / 정원 10명</span>
+                </div>
+              </div>
+              <div class="mypage-meeting-actions">
+                <a href="/detail.html" class="btn btn--secondary btn--sm">상세보기</a>
+              </div>
+            </div>
+            <!-- TH:REPEAT END -->
+
+            <div style="margin-top:var(--sp-4);text-align:center;">
+              <a href="/form.html" class="btn btn--primary">새 모임 만들기</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== Panel: 프로필 수정 ==================== -->
+        <div class="tab-panel" role="tabpanel" id="panel-my-profile" aria-labelledby="tab-my-profile">
+          <div class="mypage-section">
+            <h2 class="mypage-section-title">프로필 수정</h2>
+
+            <!-- TH:IF(profileSuccess) -->
+            <div class="alert alert--success" style="margin-bottom:var(--sp-4);display:none;" role="alert">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              <span class="alert-content">프로필이 성공적으로 수정되었습니다.</span>
+              <button type="button" class="btn-dismiss" data-action="dismiss" aria-label="알림 닫기">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              </button>
+            </div>
+
+            <!-- TH:FIELD(action) -->
+            <form action="#" method="post" class="form-stack mypage-form" data-validate="form" aria-label="프로필 수정 폼">
+
+              <!-- 이름 -->
+              <div class="form-group" data-rules="required,min:2">
+                <label class="form-label" for="profile-name">이름 <span class="required" aria-label="필수">*</span></label>
+                <!-- TH:FIELD(name) -->
+                <input type="text" id="profile-name" name="name" class="form-input" value="김산길" autocomplete="name">
+                <span class="form-error" role="alert"></span>
+              </div>
+
+              <!-- 닉네임 -->
+              <div class="form-group" data-rules="required,min:2">
+                <label class="form-label" for="profile-nickname">닉네임 <span class="required" aria-label="필수">*</span></label>
+                <!-- TH:FIELD(nickname) -->
+                <input type="text" id="profile-nickname" name="nickname" class="form-input" value="산길러버" autocomplete="off">
+                <span class="form-error" role="alert"></span>
+              </div>
+
+              <!-- 이메일 (읽기전용) -->
+              <div class="form-group">
+                <label class="form-label" for="profile-email">이메일</label>
+                <!-- TH:FIELD(email) -->
+                <input type="email" id="profile-email" name="email" class="form-input" value="sungil@meethub.kr" disabled aria-describedby="profile-email-hint">
+                <span class="form-hint" id="profile-email-hint">이메일은 변경할 수 없습니다.</span>
+              </div>
+
+              <!-- 관심 카테고리 -->
+              <div class="form-group">
+                <label class="form-label" for="profile-interests">관심 카테고리</label>
+                <!-- TH:FIELD(interests) -->
+                <select id="profile-interests" name="interests" class="form-select">
+                  <option value="">선택하세요</option>
+                  <!-- TH:REPEAT(categories) -->
+                  <option value="outdoor" selected>아웃도어</option>
+                  <option value="sports">스포츠</option>
+                  <option value="music">음악</option>
+                  <option value="art">미술/공예</option>
+                  <option value="cooking">요리</option>
+                  <option value="reading">독서</option>
+                  <option value="tech">테크/개발</option>
+                  <option value="language">외국어</option>
+                </select>
+              </div>
+
+              <!-- 자기소개 -->
+              <div class="form-group">
+                <label class="form-label" for="profile-bio">자기소개</label>
+                <!-- TH:FIELD(bio) -->
+                <textarea id="profile-bio" name="bio" class="form-textarea" rows="4" placeholder="모임에서 나를 소개하는 한 마디를 적어주세요.">산 좋아하고 자연을 사랑하는 사람입니다. 함께 걸어요!</textarea>
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" class="btn btn--primary btn--lg">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                  저장하기
+                </button>
+              </div>
+            </form>
+
+            <!-- 비밀번호 변경 -->
+            <div style="margin-top:var(--sp-8);">
+              <h3 style="font-size:var(--fs-base);font-weight:var(--fw-semibold);color:var(--color-text-primary);margin-bottom:var(--sp-4);">비밀번호 변경</h3>
+              <form action="#" method="post" class="form-stack mypage-form" data-validate="form" aria-label="비밀번호 변경 폼">
+                <div class="form-group" data-rules="required,min:8">
+                  <label class="form-label" for="current-pw">현재 비밀번호 <span class="required" aria-label="필수">*</span></label>
+                  <div class="input-password-wrap">
+                    <input type="password" id="current-pw" name="currentPassword" class="form-input" placeholder="현재 비밀번호" autocomplete="current-password">
+                    <button type="button" class="btn-toggle-pw" data-action="toggle-password" aria-label="비밀번호 보기">
+                      <svg class="icon-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                      <svg class="icon-eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                    </button>
+                  </div>
+                  <span class="form-error" role="alert"></span>
+                </div>
+                <div class="form-group" data-rules="required,min:8">
+                  <label class="form-label" for="new-pw">새 비밀번호 <span class="required" aria-label="필수">*</span></label>
+                  <div class="input-password-wrap">
+                    <input type="password" id="new-pw" name="newPassword" class="form-input" placeholder="8자 이상, 영문/숫자/특수문자 포함" autocomplete="new-password">
+                    <button type="button" class="btn-toggle-pw" data-action="toggle-password" aria-label="비밀번호 보기">
+                      <svg class="icon-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                      <svg class="icon-eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                    </button>
+                  </div>
+                  <span class="form-error" role="alert"></span>
+                </div>
+                <div class="form-actions">
+                  <button type="submit" class="btn btn--secondary btn--lg">비밀번호 변경</button>
+                </div>
+              </form>
+            </div>
+
+            <!-- 회원 탈퇴 -->
+            <div style="margin-top:var(--sp-8);padding-top:var(--sp-6);border-top:1px solid var(--color-border);">
+              <h3 style="font-size:var(--fs-base);font-weight:var(--fw-semibold);color:var(--color-error);margin-bottom:var(--sp-2);">회원 탈퇴</h3>
+              <p style="font-size:var(--fs-sm);color:var(--color-text-secondary);margin-bottom:var(--sp-4);line-height:var(--lh-relaxed);">회원 탈퇴 시 모든 데이터가 삭제되며 복구할 수 없습니다. 개설한 모임의 호스트 권한도 소멸됩니다.</p>
+              <button type="button" class="btn btn--secondary btn--sm" style="color:var(--color-error);border-color:var(--color-error);">회원 탈퇴</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- ==================== FOOTER (PARTIAL:footer START) ==================== -->
+  <!-- TH:REPLACE(~{_partials/footer :: footer}) -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="/home.html" class="site-logo" aria-label="MeetHub 홈으로">
+            <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="2"/><circle cx="10" cy="12" r="2.5" fill="currentColor"/><circle cx="18" cy="12" r="2.5" fill="currentColor"/><path d="M9 18c0 0 2.5 3 5 3s5-3 5-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            MeetHub
+          </a>
+          <p>취미 모임을 쉽고 빠르게. 함께하는 즐거움을 MeetHub에서 시작하세요.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-links-group">
+            <h4>서비스</h4>
+            <a href="/list.html">모임 목록</a>
+            <a href="/form.html">모임 등록</a>
+            <a href="#">이용 가이드</a>
+          </div>
+          <div class="footer-links-group">
+            <h4>지원</h4>
+            <a href="#">자주 묻는 질문</a>
+            <a href="#">문의하기</a>
+            <a href="#">이용약관</a>
+            <a href="#">개인정보처리방침</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">&copy; 2026 MeetHub. All rights reserved.</div>
+    </div>
+  </footer>
+  <!-- PARTIAL:footer END -->
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>

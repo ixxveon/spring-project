@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MeetHub — 취미 모임 모집 플랫폼</title>
+  <meta name="description" content="함께하는 취미, 더 즐거운 일상. MeetHub에서 취미 모임을 만들고 참여하세요.">
+  <link rel="stylesheet" href="/static/css/app.css">
+</head>
+<body>
+
+<div th:replace="~{fragments/header :: header}"></div>
+
+  <main>
+    <!-- ==================== HERO ==================== -->
+    <section class="hero">
+      <div class="container">
+        <h1 class="hero-title">함께하는 취미,<br>더 즐거운 일상</h1>
+        <p class="hero-desc">관심사가 같은 사람들과 쉽고 빠르게 모임을 만들고 참여하세요. MeetHub가 연결해 드립니다.</p>
+        <div class="hero-actions">
+          <a href="/form.html" class="btn btn--primary btn--lg">지금 모임 만들기</a>
+          <a href="/list.html" class="btn btn--secondary btn--lg">모임 둘러보기</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== FEATURES ==================== -->
+    <section class="section" aria-labelledby="features-title">
+      <div class="container">
+        <h2 id="features-title" class="text-center" style="font-size:var(--fs-2xl);font-weight:var(--fw-bold);margin-bottom:var(--sp-8);">주요 기능</h2>
+        <div class="grid grid--3">
+
+          <!-- Feature 1: 모임 생성 -->
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+            </div>
+            <h3>모임 생성</h3>
+            <p>몇 번의 클릭만으로 취미 모임을 간편하게 만들 수 있습니다. 카테고리, 일정, 장소를 설정하고 바로 모집을 시작하세요.</p>
+          </article>
+
+          <!-- Feature 2: 참여 신청 -->
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+            </div>
+            <h3>참여 신청</h3>
+            <p>마음에 드는 모임을 발견하면 한 번의 클릭으로 바로 참여 신청. 복잡한 절차 없이 빠르게 합류할 수 있습니다.</p>
+          </article>
+
+          <!-- Feature 3: 모집 상태 관리 -->
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </div>
+            <h3>모집 상태 관리</h3>
+            <p>실시간 인원 현황과 모집 상태를 한눈에 확인하세요. 모집중, 마감 상태가 자동으로 표시됩니다.</p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== STATS ==================== -->
+    <section class="section section--alt" aria-label="서비스 통계">
+      <div class="container">
+        <div class="stats">
+          <div class="stat-item">
+            <!-- TH:TEXT(totalMeetings) -->
+            <div class="stat-value">1,240</div>
+            <div class="stat-label">등록된 모임</div>
+          </div>
+          <div class="stat-item">
+            <!-- TH:TEXT(totalUsers) -->
+            <div class="stat-value">8,500+</div>
+            <div class="stat-label">활동 회원</div>
+          </div>
+          <div class="stat-item">
+            <!-- TH:TEXT(totalCategories) -->
+            <div class="stat-value">32</div>
+            <div class="stat-label">취미 카테고리</div>
+          </div>
+          <div class="stat-item">
+            <!-- TH:TEXT(totalRegions) -->
+            <div class="stat-value">16</div>
+            <div class="stat-label">활동 지역</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SERVICE HIGHLIGHTS ==================== -->
+    <section class="section" aria-labelledby="highlights-title">
+      <div class="container">
+        <h2 id="highlights-title" class="text-center" style="font-size:var(--fs-2xl);font-weight:var(--fw-bold);margin-bottom:var(--sp-2);">왜 MeetHub인가요?</h2>
+        <p class="text-center text-secondary" style="margin-bottom:var(--sp-8);max-width:480px;margin-inline:auto;">MeetHub는 취미 모임의 처음부터 끝까지 함께합니다.</p>
+        <div class="grid grid--3">
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            </div>
+            <h3>직관적 UI</h3>
+            <p>누구나 쉽게 사용할 수 있는 깔끔하고 직관적인 인터페이스를 제공합니다.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            </div>
+            <h3>간편한 참여 흐름</h3>
+            <p>복잡한 가입 절차 없이 빠르게 모임에 참여할 수 있는 간결한 흐름을 제공합니다.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            </div>
+            <h3>확장성</h3>
+            <p>소규모 취미 모임부터 대규모 커뮤니티까지, 유연하게 성장할 수 있는 구조입니다.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== CTA ==================== -->
+    <section class="cta-section">
+      <div class="container">
+        <h2>지금 바로 시작하세요</h2>
+        <p>새로운 취미 친구를 만나고 함께 즐거운 시간을 보내세요. 무료로 모임을 만들 수 있습니다.</p>
+        <a href="/form.html" class="btn btn--primary btn--lg">지금 모임 만들기</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== FOOTER (PARTIAL:footer START) ==================== -->
+  <!-- TH:REPLACE(~{_partials/footer :: footer}) -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="/home.html" class="site-logo" aria-label="MeetHub 홈으로">
+            <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="2"/><circle cx="10" cy="12" r="2.5" fill="currentColor"/><circle cx="18" cy="12" r="2.5" fill="currentColor"/><path d="M9 18c0 0 2.5 3 5 3s5-3 5-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            MeetHub
+          </a>
+          <p>취미 모임을 쉽고 빠르게. 함께하는 즐거움을 MeetHub에서 시작하세요.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-links-group">
+            <h4>서비스</h4>
+            <a href="/list.html">모임 목록</a>
+            <a href="/form.html">모임 등록</a>
+            <a href="#">이용 가이드</a>
+          </div>
+          <div class="footer-links-group">
+            <h4>지원</h4>
+            <a href="#">자주 묻는 질문</a>
+            <a href="#">문의하기</a>
+            <a href="#">이용약관</a>
+            <a href="#">개인정보처리방침</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">&copy; 2026 MeetHub. All rights reserved.</div>
+    </div>
+  </footer>
+  <!-- PARTIAL:footer END -->
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
