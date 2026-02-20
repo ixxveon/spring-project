@@ -71,7 +71,7 @@
             </div>
             <div class="capacity-bar-text">잔여 7자리</div>
           </div>
-          <a href="/apply.html" class="btn btn--primary btn--lg">참여 신청하기</a>
+          <a th:href="@{/join/1}" class="btn btn--primary btn--lg">참여 신청하기</a>
         </div>
       </section>
 
@@ -131,7 +131,7 @@
     <!-- ==================== STICKY CTA ==================== -->
     <div class="detail-cta">
       <!-- TH:IF(meeting.status == 'open') -->
-      <a href="/apply.html" class="btn btn--primary btn--lg" style="min-width:240px;">참여 신청하기</a>
+      <a href="/join/form" class="btn btn--primary btn--lg" style="min-width:240px;">참여 신청하기</a>
       <a href="/list.html" class="btn btn--secondary btn--lg">목록으로</a>
     </div>
   </main>
