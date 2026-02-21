@@ -27,13 +27,14 @@ import lombok.NoArgsConstructor;
 public class JoinRequests {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long id; // 신청 PK
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id")
-	private Meetings meetingId;
+	@JoinColumn(name = "meeting_id")
+	private Meetings meeting;
 	
-	//private Users userId;
+	@Column(nullable = false)
+	private Long userId;
 	
 	@Column(nullable = false)
 	private int memberCount;
@@ -42,7 +43,7 @@ public class JoinRequests {
 	private String phoneNumber;
 	
 	@Lob
-	@Column(nullable = true, length = 255)
+	@Column(nullable = true)
 	private String message;
 	
 	@Column(nullable = false, length = 10)

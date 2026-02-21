@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>모집 상세 — MeetHub</title>
   <meta name="description" content="모임의 상세 정보를 확인하고 참여를 신청하세요.">
-  <link rel="stylesheet" href="/static/css/app.css">
+  <link rel="stylesheet" href="/css/app.css">
 </head>
 <body>
 
@@ -28,11 +28,14 @@
       <section class="detail-header">
         <div class="flex flex--between flex--wrap gap-4" style="margin-bottom:var(--sp-4);">
           <div class="flex gap-2">
+			
             <!-- TH:IF(meeting.status == 'open') -->
-            <span class="badge badge--open">모집중</span>
+            <span class="badge badge--open" th:if="${meeting.status == 'OPEN'}">모집중</span>
+			<span class="badge badge--closed" th:if="${meeting.status != 'OPEN'}">마감</span>
             <span class="badge badge--popular">인기</span>
           </div>
-          <span class="text-sm text-tertiary">아웃도어</span>
+		  
+          <span class="text-sm text-tertiary" th:text="${meeting.category}">아웃도어</span>
         </div>
 
         <!-- TH:TEXT(meeting.title) -->
@@ -71,7 +74,7 @@
             </div>
             <div class="capacity-bar-text">잔여 7자리</div>
           </div>
-          <a th:href="@{/join/1}" class="btn btn--primary btn--lg">참여 신청하기</a>
+          <a href="/join/form" class="btn btn--primary btn--lg">참여 신청하기</a>
         </div>
       </section>
 
@@ -142,7 +145,7 @@
     <div class="container">
       <div class="footer-inner">
         <div class="footer-brand">
-          <a href="/home.html" class="site-logo" aria-label="MeetHub 홈으로">
+          <a href="/" class="site-logo" aria-label="MeetHub 홈으로">
             <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="2"/><circle cx="10" cy="12" r="2.5" fill="currentColor"/><circle cx="18" cy="12" r="2.5" fill="currentColor"/><path d="M9 18c0 0 2.5 3 5 3s5-3 5-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
             MeetHub
           </a>

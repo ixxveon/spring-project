@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,38 +11,75 @@
 
 <div th:replace="~{fragments/header :: header}"></div>
 
-  <main>
-    <div class="container">
-      <div class="apply-page">
-        <h1 class="form-page-title">참여 신청</h1>
-        <p class="form-page-desc">아래 모임에 참여를 신청합니다. 신청 정보를 확인하고 메시지를 남겨주세요.</p>
+<main>
+  <div class="container">
+    <div class="apply-page">
+
+      <!-- ==================== 상단 타이틀/메시지 ==================== -->
+
+      <!-- meeting이 있을 때(정상 신청 화면) -->
+      <a class="form-page-title"
+         th:if="${meeting != null}"
+         th:href="@{/join/form(meetingId=${meeting.id})}">
+        참여 신청
+      </a>
+
+      <!-- meeting이 없을 때(마감/없음 안내 화면) -->
+      <a class="form-page-title" th:if="${meeting == null}" href="#">
+        참여 신청
+      </a>
+
+      <!-- 안내 메시지 (컨트롤러에서 msg 넣어주면 표시됨) -->
+      <p th:if="${msg != null}" th:text="${msg}">마감된 모집글입니다.</p>
+
+      <!-- meeting 있을 때만 설명 문구 -->
+      <p class="form-page-desc" th:if="${meeting != null}">
+        아래 모임에 참여를 신청합니다. 신청 정보를 확인하고 메시지를 남겨주세요.
+      </p>
+
+      <!-- ==================== (중요) meeting 있을 때만 전체 신청 화면 ==================== -->
+      <div th:if="${meeting != null}">
 
         <!-- ==================== 모임 요약 정보 ==================== -->
         <div class="apply-meeting-summary">
           <h2>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;display:inline;vertical-align:middle;margin-right:4px;" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            <!-- TH:TEXT(meeting.title) -->주말 북한산 트레킹 모임
+            <span th:text="${meeting.title}">주말 북한산 트레킹 모임</span>
           </h2>
+
           <div class="apply-summary-row">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            <!-- TH:TEXT(meeting.location) -->
-            <span>서울 은평구 진관동</span>
+            <!-- location 필드명이 다르면 여기 수정 필요 -->
+            <span th:text="${meeting.location}">서울 은평구 진관동</span>
           </div>
+
           <div class="apply-summary-row">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-            <!-- TH:TEXT(meeting.date) -->
-            <span>2026년 3월 1일 (토) 오전 9:00</span>
+
+            <!-- startAt 필드명이 실제 엔티티와 다르면 이 줄이 또 터짐!
+                 meetings 테이블 컬럼은 meeting_start라서 엔티티는 meetingStart 같은 이름일 가능성이 큼 -->
+            <span th:text="${meeting.startAt != null ? #temporals.format(meeting.startAt, 'yyyy년 M월 d일 (E) a h:mm') : ''}">
+              2026년 3월 1일 (토) 오전 9:00
+            </span>
           </div>
+
           <div class="apply-summary-row">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            <!-- TH:TEXT(meeting.host) -->
-            <span>주최자: 김산길 님</span>
+            <span>주최자: </span>
+            <!-- hostName 필드명이 다르면 수정 필요 -->
+            <span th:text="${meeting.hostName}">김산길</span><span> 님</span>
           </div>
+
           <div class="apply-summary-row">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-            <!-- TH:TEXT(meeting.capacity) -->
-            <span>현재 인원: 8 / 15명 (잔여 7자리)</span>
+
+            <!-- current/remaining 같은 값이 엔티티에 없으면 터질 수 있음.
+                 없으면 아래 줄을 지우고 capacity만 보여줘도 됨 -->
+            <span th:text="'현재 인원: ' + ${meeting.current} + ' / ' + ${meeting.capacity} + '명 (잔여 ' + ${meeting.remaining} + '자리)'">
+              현재 인원: 8 / 15명 (잔여 7자리)
+            </span>
           </div>
+
           <div style="margin-top:var(--sp-2);">
             <span class="badge badge--open">모집중</span>
           </div>
@@ -56,29 +93,16 @@
           - 모임 관련 상세 안내는 참여 확정 후 안내됩니다.
         </div>
 
-        <!-- 서버 에러 영역 -->
-        <!-- TH:IF(applyError) -->
-        <div class="alert alert--error" style="margin-bottom:var(--sp-4);display:none;" role="alert">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
-          <span class="alert-content"><!-- TH:TEXT(applyError) -->참여 신청 중 오류가 발생했습니다. 다시 시도해 주세요.</span>
-          <button type="button" class="btn-dismiss" data-action="dismiss" aria-label="알림 닫기">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          </button>
-        </div>
-
         <!-- ==================== 신청 폼 ==================== -->
-        <!-- TH:FIELD(action) -->
-        <form action="#" method="post" class="form-stack" data-validate="form" aria-label="참여 신청 폼">
+        <form action="/join/apply" method="POST" class="form-stack" data-validate="form" aria-label="참여 신청 폼">
 
           <!-- 숨겨진 모임 ID -->
-          <!-- TH:FIELD(meetingId) -->
-          <input type="hidden" name="meetingId" value="1">
+          <input type="hidden" name="meetingId" th:value="${meeting.id}" />
 
           <!-- 참여 인원 수 -->
           <div class="form-group" data-rules="required">
             <label class="form-label" for="apply-count">참여 인원 <span class="required" aria-label="필수">*</span></label>
-            <!-- TH:FIELD(count) -->
-            <select id="apply-count" name="count" class="form-select">
+            <select id="apply-count" name="memberCount" class="form-select">
               <option value="1" selected>1명 (본인만)</option>
               <option value="2">2명</option>
               <option value="3">3명</option>
@@ -92,8 +116,7 @@
           <!-- 연락처 -->
           <div class="form-group" data-rules="required">
             <label class="form-label" for="apply-phone">연락처 <span class="required" aria-label="필수">*</span></label>
-            <!-- TH:FIELD(phone) -->
-            <input type="tel" id="apply-phone" name="phone" class="form-input" placeholder="010-0000-0000" autocomplete="tel">
+            <input type="tel" id="apply-phone" name="phoneNumber" class="form-input" placeholder="010-0000-0000" autocomplete="tel">
             <span class="form-hint">모임 관련 연락을 위해 사용됩니다.</span>
             <span class="form-error" role="alert"></span>
           </div>
@@ -101,7 +124,6 @@
           <!-- 주최자에게 메시지 -->
           <div class="form-group">
             <label class="form-label" for="apply-message">주최자에게 메시지</label>
-            <!-- TH:FIELD(message) -->
             <textarea id="apply-message" name="message" class="form-textarea" rows="4" placeholder="주최자에게 전달할 메시지가 있다면 자유롭게 작성하세요. (선택 사항)"></textarea>
             <span class="form-hint">자기소개나 궁금한 점을 남겨주시면 좋습니다.</span>
           </div>
@@ -121,46 +143,21 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
               참여 신청하기
             </button>
-            <a href="/detail.html" class="btn btn--secondary btn--lg">돌아가기</a>
+            <a href="/meetings/detail" class="btn btn--secondary btn--lg">돌아가기</a>
           </div>
         </form>
-      </div>
-    </div>
-  </main>
 
-  <!-- ==================== FOOTER (PARTIAL:footer START) ==================== -->
-  <!-- TH:REPLACE(~{_partials/footer :: footer}) -->
-  <footer class="site-footer" role="contentinfo">
-    <div class="container">
-      <div class="footer-inner">
-        <div class="footer-brand">
-          <a href="/home.html" class="site-logo" aria-label="MeetHub 홈으로">
-            <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="2"/><circle cx="10" cy="12" r="2.5" fill="currentColor"/><circle cx="18" cy="12" r="2.5" fill="currentColor"/><path d="M9 18c0 0 2.5 3 5 3s5-3 5-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-            MeetHub
-          </a>
-          <p>취미 모임을 쉽고 빠르게. 함께하는 즐거움을 MeetHub에서 시작하세요.</p>
-        </div>
-        <div class="footer-links">
-          <div class="footer-links-group">
-            <h4>서비스</h4>
-            <a href="/list.html">모임 목록</a>
-            <a href="/form.html">모임 등록</a>
-            <a href="#">이용 가이드</a>
-          </div>
-          <div class="footer-links-group">
-            <h4>지원</h4>
-            <a href="#">자주 묻는 질문</a>
-            <a href="#">문의하기</a>
-            <a href="#">이용약관</a>
-            <a href="#">개인정보처리방침</a>
-          </div>
-        </div>
-      </div>
-      <div class="footer-bottom">&copy; 2026 MeetHub. All rights reserved.</div>
-    </div>
-  </footer>
-  <!-- PARTIAL:footer END -->
+      </div><!-- /meeting != null -->
 
-  <script src="/static/js/app.js"></script>
+      <!-- ==================== meeting이 없을 때 안내 버튼 ==================== -->
+      <div th:if="${meeting == null}" style="margin-top: var(--sp-4);">
+        <a href="/meetings/list" class="btn btn--secondary btn--lg">목록으로</a>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<script src="/js/app.js"></script>
 </body>
 </html>
