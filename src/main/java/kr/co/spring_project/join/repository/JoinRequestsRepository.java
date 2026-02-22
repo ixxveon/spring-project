@@ -10,7 +10,8 @@ public interface JoinRequestsRepository  extends JpaRepository<JoinRequests, Lon
 
 	boolean existsByMeeting_IdAndUserId(Long meetingId, Long UserId);
 
-	List<JoinRequests> findAllByOrderByIdDesc();
+	// 내 신청 목록 조회 (최신순으로)
+	List<JoinRequests> findByUserIdOrderByIdDesc(Long userId);
 	
 
 }

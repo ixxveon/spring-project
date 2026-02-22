@@ -50,7 +50,7 @@
           <div class="apply-summary-row">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
             <!-- location 필드명이 다르면 여기 수정 필요 -->
-            <span th:text="${meeting.location}">서울 은평구 진관동</span>
+            <span th:text="${meeting.region != null ? meeting.region : ''}"></span>
           </div>
 
           <div class="apply-summary-row">
@@ -58,26 +58,21 @@
 
             <!-- startAt 필드명이 실제 엔티티와 다르면 이 줄이 또 터짐!
                  meetings 테이블 컬럼은 meeting_start라서 엔티티는 meetingStart 같은 이름일 가능성이 큼 -->
-            <span th:text="${meeting.startAt != null ? #temporals.format(meeting.startAt, 'yyyy년 M월 d일 (E) a h:mm') : ''}">
-              2026년 3월 1일 (토) 오전 9:00
-            </span>
+             <span th:text="${meeting.meetingStart != null ? #temporals.format(meeting.meetingStart, 'yyyy년 M월 d일 (E) a h:mm') : ''}"></span>
           </div>
 
           <div class="apply-summary-row">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
             <span>주최자: </span>
             <!-- hostName 필드명이 다르면 수정 필요 -->
-            <span th:text="${meeting.hostName}">김산길</span><span> 님</span>
+            <span th:text="${meeting.userid}"></span><span></span>
           </div>
 
           <div class="apply-summary-row">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
 
-            <!-- current/remaining 같은 값이 엔티티에 없으면 터질 수 있음.
-                 없으면 아래 줄을 지우고 capacity만 보여줘도 됨 -->
-            <span th:text="'현재 인원: ' + ${meeting.current} + ' / ' + ${meeting.capacity} + '명 (잔여 ' + ${meeting.remaining} + '자리)'">
-              현재 인원: 8 / 15명 (잔여 7자리)
-            </span>
+            <!-- current/remaining 같은 값이 엔티티에 없으면 터질 수 있음.-->
+			<span th:text="|정원: ${meeting.capacity}명|"></span>
           </div>
 
           <div style="margin-top:var(--sp-2);">
@@ -94,7 +89,7 @@
         </div>
 
         <!-- ==================== 신청 폼 ==================== -->
-        <form action="/join/apply" method="POST" class="form-stack" data-validate="form" aria-label="참여 신청 폼">
+        <form th:action="@{/join/apply}" method="POST" class="form-stack" data-validate="form" aria-label="참여 신청 폼">
 
           <!-- 숨겨진 모임 ID -->
           <input type="hidden" name="meetingId" th:value="${meeting.id}" />

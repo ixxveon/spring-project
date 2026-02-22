@@ -18,7 +18,7 @@ public interface JoinRequestsService {
 	 * - 중복 신청 방지 (이미 신청했으면 막기)
 	 * @param request
 	 */
-	void apply(ReqJoinDTO request, HttpSession session);
+	void apply(ReqJoinDTO request, Long uerId);
 
-	List<ResJoinDTO> getAll();
+	List<ResJoinDTO> getMyList(Long userId);
 }

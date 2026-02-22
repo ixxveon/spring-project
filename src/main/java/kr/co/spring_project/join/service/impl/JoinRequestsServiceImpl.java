@@ -52,31 +52,27 @@ public class JoinRequestsServiceImpl implements JoinRequestsService {
 	
 	// 신청 가능 여부 판단
 	@Override
-	public void apply(ReqJoinDTO request, HttpSession session) {
-		// 1. 로그인한 유저인지 체크 (Session?)
-		Long userId = (Long) session.getAttribute("LOGIN_USER");
-		if (userId == null) {
-            System.out.println("로그인이 필요합니다.");
-            return;
-        }
-		
-		// 2. 존재하는 모임인지
-		// 3. 모집상태가 open인지 체크
-		// 위 로직과 같아서 위 메서드 재사용가능할듯
+	public void apply(ReqJoinDTO request, Long userId) {
 		Meetings meeting = getStatusCheck(request.getMeetingId());
-		if (meeting == null) {
-			// getStatusCheck에서 이미 이유 출력했으니 여기서는 종료만
+		
+		if (userId == null) {
+			System.out.println("로그인이 필요합니다.");
 	        return;
 	    }
 		
+		// 1. 존재하는 모임인지
+		// 2. 모집상태가 open인지 체크
+		if (meeting == null) return;
+		
 		// 4. 정원이 남아 있는지 체크
 		if(meeting.getCapacity() != null && request.getMemberCount() > meeting.getCapacity()) {
-			System.out.println("로그인이 필요합니다.");
+			System.out.println("정원이 부족합니다..");
 			return;
 		}
 		
 		// 5. 중복 신청 방지(?)                             존재하는지 이 모임에 이 유저가
 		boolean alreadyApplied = joinRequestsRepository.existsByMeeting_IdAndUserId(request.getMeetingId(), userId);
+		
 		if(alreadyApplied) {
 			 System.out.println("이미 신청한 모임입니다.");
 	         return;
@@ -98,8 +94,14 @@ public class JoinRequestsServiceImpl implements JoinRequestsService {
 	}
 	
 	@Override
-	public List<ResJoinDTO> getAll() {
-		List<JoinRequests> entityList = joinRequestsRepository.findAllByOrderByIdDesc();
+	public List<ResJoinDTO> getMyList(Long userId) {
+		
+		if (userId == null) {
+			System.out.println("로그인이 필요합니다.");
+			return new ArrayList<>();
+		}
+		
+		List<JoinRequests> entityList = joinRequestsRepository.findByUserIdOrderByIdDesc(userId);
 		List<ResJoinDTO> dtoList = new ArrayList<>();
 		
 		for(JoinRequests j : entityList) {
