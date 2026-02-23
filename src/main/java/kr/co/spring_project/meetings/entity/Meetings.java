@@ -10,10 +10,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 @Entity
 @Table(name = "Meetings")
 public class Meetings {
@@ -58,6 +62,22 @@ public class Meetings {
 	
 	@Column(name = "updated_at", nullable = false)
 	private LocalDateTime updatedAt;
+
+	 @PrePersist
+	    public void prePersist() {
+	        this.createdAt = LocalDateTime.now();
+	        this.updatedAt = LocalDateTime.now();
+	    }
+
+	    @PreUpdate
+	    public void preUpdate() {
+	        this.updatedAt = LocalDateTime.now();
+	    }
+
+		public Meetings orElseThrow(Object object) {
+			// TODO Auto-generated method stub
+			return null;
+		}
 	
 	
 	
