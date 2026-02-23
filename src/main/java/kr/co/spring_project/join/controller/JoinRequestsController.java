@@ -48,7 +48,7 @@ public class JoinRequestsController {
 		Long userId = (Long) session.getAttribute("LOGIN_USER");
 			if (userId == null) {
 		        System.out.println("로그인이 필요합니다.");
-		        return "pages/home"; // redirectL/login
+		        return "pages/home"; // redirect:/login
 		    }
 	    joinRequestsService.apply(request, userId);
 		

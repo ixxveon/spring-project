@@ -33,7 +33,7 @@
       </div>
 
       <!-- TH:FIELD(action) -->
-      <form action="#" method="post" class="form-stack" data-validate="form" aria-label="로그인 폼">
+      <form action="/users/login" method="post" class="form-stack" data-validate="form" aria-label="로그인 폼">
 
         <!-- 이메일 / 아이디 -->
         <div class="form-group" data-rules="required,email">
@@ -63,13 +63,13 @@
           <span class="form-error" role="alert"></span>
         </div>
 
-        <!-- 로그인 버튼 -->
+        <!-- 로그인 버튼 여기서 post를 보내야 되지 않을까?? -->
         <button type="submit" class="btn btn--primary btn--lg" style="width:100%;">로그인</button>
 
       </form>
 
       <div class="login-footer">
-        아직 회원이 아니신가요? <a href="/signup.html">회원가입</a>
+        아직 회원이 아니신가요? <a href="/users/signup/form">회원가입</a>
       </div>
     </div>
   </main>
@@ -79,6 +79,6 @@
     &copy; 2026 MeetHub. All rights reserved.
   </footer>
 
-  <script src="/static/js/app.js"></script>
+  <script src="/js/app.js"></script>
 </body>
 </html>
