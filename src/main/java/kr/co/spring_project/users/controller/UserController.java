@@ -60,6 +60,23 @@ public class UserController {
 		   session.invalidate();
 		   return "pages/home";
 	   }
+	   
+	   // 마이페이지
+	   // 
+	   @GetMapping("/mypage")
+	   public String mypage(ReqLoginDTO request, HttpSession session) {
+		   ResLoginDTO loginUser = usersService.login(request);
+		   
+		   if(loginUser == null) {
+			   return "redirect:/users/login/form";
+		   }
+		   
+		   
+		   
+		   
+		   
+		   return "/pages/mypage";
+	   }
 	
 	
 }

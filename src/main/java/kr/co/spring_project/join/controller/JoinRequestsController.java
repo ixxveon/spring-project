@@ -14,6 +14,7 @@ import kr.co.spring_project.join.dto.ReqJoinDTO;
 import kr.co.spring_project.join.dto.ResJoinDTO;
 import kr.co.spring_project.join.service.JoinRequestsService;
 import kr.co.spring_project.meetings.entity.Meetings;
+import kr.co.spring_project.users.dto.ResLoginDTO;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -45,12 +46,20 @@ public class JoinRequestsController {
 	@PostMapping("/apply")
 	public String joinRequests(ReqJoinDTO request, HttpSession session) {
 		// 1. 로그인한 유저인지 체크 (Session?)
-		Long userId = (Long) session.getAttribute("LOGIN_USER");
-			if (userId == null) {
-		        System.out.println("로그인이 필요합니다.");
-		        return "pages/home"; // redirect:/login
-		    }
-	    joinRequestsService.apply(request, userId);
+		/*
+		 * Long userId = (Long) session.getAttribute("LOGIN_USER"); if (userId == null)
+		 * { System.out.println("로그인이 필요합니다."); return "pages/home"; // redirect:/login
+		 * }
+		 */
+		ResLoginDTO loginUser = (ResLoginDTO) session.getAttribute("LOGIN_USER");
+	    
+		if(loginUser == null) {
+			System.out.println("로그인이 필요합니다.");
+			return "pages/login";
+		}
+		
+		// 로그인 성공하면 요고 실행
+		joinRequestsService.apply(request, loginUser.getId());
 		
 	    // 저장 끝났으면 GET으로 보내서 목록을 조회하게 해야 함
 		return "redirect:/join/list";
@@ -60,10 +69,10 @@ public class JoinRequestsController {
 	// 본인이 신청한 목록만 볼 수 있게 수정하자
 	@GetMapping("/list")
 	public String JoinList(Model model, HttpSession session) {
-		Long userId = (Long) session.getAttribute("LOGIN_USER");
+		ResLoginDTO loginUser = (ResLoginDTO) session.getAttribute("LOGIN_USER");
 	
 		// 전체 목록 보게 할까..?
-		List<ResJoinDTO> list = joinRequestsService.getMyList(userId);
+		List<ResJoinDTO> list = joinRequestsService.getMyList(loginUser.getId());
 		model.addAttribute("list", list);
 		
 		return "pages/list";

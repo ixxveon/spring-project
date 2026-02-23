@@ -8,10 +8,10 @@ import kr.co.spring_project.join.entity.JoinRequests;
 
 public interface JoinRequestsRepository  extends JpaRepository<JoinRequests, Long> {
 
-	boolean existsByMeeting_IdAndUserId(Long meetingId, Long UserId);
+	boolean existsByMeeting_IdAndUserId_Id(Long meetingId, Long userId);
 
 	// 내 신청 목록 조회 (최신순으로)
-	List<JoinRequests> findByUserIdOrderByIdDesc(Long userId);
+	List<JoinRequests> findByUserId_IdOrderByIdDesc(Long userId);
 	
 
 }

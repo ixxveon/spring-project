@@ -14,6 +14,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import kr.co.spring_project.meetings.entity.Meetings;
+import kr.co.spring_project.users.entity.Users;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -33,8 +34,9 @@ public class JoinRequests {
 	@JoinColumn(name = "meeting_id")
 	private Meetings meeting;
 	
-	@Column(nullable = false)
-	private Long userId;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id")
+	private Users userId;
 	
 	@Column(nullable = false)
 	private int memberCount;
