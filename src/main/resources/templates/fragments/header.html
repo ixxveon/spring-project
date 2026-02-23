@@ -19,8 +19,8 @@
       </a>
       <nav class="site-nav" aria-label="메인 메뉴">
         <a href="/">홈</a>
-        <a href="/list.html">모임 목록</a> <!-- 은별님  -->
-        <a href="/form.html">모임 등록</a> <!-- 은별님  -->
+        <a href="/meeting">모임 목록</a> <!-- 은별님  -->
+        <a href="/meeting/new">모임 등록</a> <!-- 은별님  -->
         <a href="/users/mypage">마이페이지</a>
          <!-- ✅ 로그인 안 했을 때 -->
         <a th:if="${session.LOGIN_USER == null}" th:href="@{/users/login/form}">로그인</a>
@@ -45,8 +45,8 @@
     </div>
     <nav id="mobile-nav" class="mobile-nav" aria-label="모바일 메뉴">
       <a href="/">홈</a>
-      <a href="/list.html">모임 목록</a>
-      <a href="/form.html">모임 등록</a>
+      <a href="/meeting">모임 목록</a>
+      <a href="/meeting/new">모임 등록</a>
       <a href="/mypage.html">마이페이지</a>
       <a href="/users/login/form">로그인</a>
     </nav>
