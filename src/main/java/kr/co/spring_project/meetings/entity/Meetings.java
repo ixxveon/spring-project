@@ -73,6 +73,11 @@ public class Meetings {
 	    public void preUpdate() {
 	        this.updatedAt = LocalDateTime.now();
 	    }
+
+		public Meetings orElseThrow(Object object) {
+			// TODO Auto-generated method stub
+			return null;
+		}
 	
 	
 	

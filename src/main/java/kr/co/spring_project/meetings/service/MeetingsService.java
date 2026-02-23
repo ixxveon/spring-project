@@ -49,12 +49,22 @@ public class MeetingsService {
 	}
 
 	public void update(Long id, UpdateRequestDTO dto) {
+			Meetings meetings = meetingsRepository.findById(id)
+					.orElseThrow(() -> new RuntimeException("모임이 존재하지 않습니다."));
 			
+			meetings.setTitle(dto.getTitle());
+			meetings.setCategory(dto.getCategory());
+			meetings.setRegion(dto.getRegion());
+			meetings.setMeetingStart(dto.getMeetingsStart());
+			meetings.setMeetingEnd(dto.getMeetingsEnd());
+			meetings.setCapacity(dto.getCapacity());
+			meetings.setContent(dto.getContent());
 	}
 
 	public void delete(Long id) {
-	
-		
+		Meetings meeting = meetingsRepository.findById(id).get();
+
+	    meetingsRepository.delete(meeting);
 	}
 	
 	

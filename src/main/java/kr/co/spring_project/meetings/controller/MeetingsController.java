@@ -23,16 +23,18 @@ public class MeetingsController {
 		
 	}
 	
+	// 모임 목록 화면으로 가기
 	@GetMapping
 	public String list(Model model) {
 		model.addAttribute("meetings", meetingsService.list());
-		return "meetings/list";
+		return "pages/list";
 	}
 	
+	// 모임 등록 화면으로 가기
 	@GetMapping("/new")
 	public String createForm(Model model) {
 		model.addAttribute("createRequestDTO", new CreateRequestDTO());
-		return "meetings/form";
+		return "pages/form";
 	}
 	
 	@GetMapping("/{id}")
@@ -53,6 +55,7 @@ public class MeetingsController {
 		return "redirect:/meetings/" + id;
 	}
 	
+    
 	@PostMapping("/{id}/edit")
 	public String update(@PathVariable Long id,
 			             @ModelAttribute UpdateRequestDTO dto) {
@@ -62,6 +65,7 @@ public class MeetingsController {
 	
 	@PostMapping("/{id}/delete")
 	public String delete(@PathVariable Long id) {
+		
 		meetingsService.delete(id);
 		return "redirect:/meeting";
 	}
