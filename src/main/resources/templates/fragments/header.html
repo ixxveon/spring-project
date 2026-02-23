@@ -13,7 +13,7 @@
   <!-- TH:REPLACE(~{_partials/header :: header}) -->
   <header class="site-header" role="banner">
     <div class="container">
-      <a href="/home.html" class="site-logo" aria-label="MeetHub 홈으로">
+      <a href="/" class="site-logo" aria-label="MeetHub 홈으로">
         <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="2"/><circle cx="10" cy="12" r="2.5" fill="currentColor"/><circle cx="18" cy="12" r="2.5" fill="currentColor"/><path d="M9 18c0 0 2.5 3 5 3s5-3 5-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
         MeetHub
       </a>
@@ -21,7 +21,7 @@
         <a href="/">홈</a>
         <a href="/list.html">모임 목록</a> <!-- 은별님  -->
         <a href="/form.html">모임 등록</a> <!-- 은별님  -->
-        <a href="/mypage.html">마이페이지</a>
+        <a href="/users/mypage">마이페이지</a>
          <!-- ✅ 로그인 안 했을 때 -->
         <a th:if="${session.LOGIN_USER == null}" th:href="@{/users/login/form}">로그인</a>
         <a th:if="${session.LOGIN_USER != null}" th:href="@{/users/logout}">로그아웃</a>

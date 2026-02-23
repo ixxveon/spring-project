@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import jakarta.servlet.http.HttpSession;
 import kr.co.spring_project.join.dto.ReqJoinDTO;
 import kr.co.spring_project.join.dto.ResJoinDTO;
 import kr.co.spring_project.join.entity.JoinRequests;
@@ -13,6 +12,8 @@ import kr.co.spring_project.join.repository.JoinRequestsRepository;
 import kr.co.spring_project.join.service.JoinRequestsService;
 import kr.co.spring_project.meetings.entity.Meetings;
 import kr.co.spring_project.meetings.repository.MeetingsRepository;
+import kr.co.spring_project.users.entity.Users;
+import kr.co.spring_project.users.repository.UsersRepository;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -20,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 public class JoinRequestsServiceImpl implements JoinRequestsService {
 	private final MeetingsRepository meetingsRepository;
 	private final JoinRequestsRepository joinRequestsRepository;
+	private final UsersRepository usersRepository;
 	
 	// 모임상태 체크
 	@Override
@@ -53,12 +55,10 @@ public class JoinRequestsServiceImpl implements JoinRequestsService {
 	// 신청 가능 여부 판단
 	@Override
 	public void apply(ReqJoinDTO request, Long userId) {
+		// 존재하는 모임인지, 모임상태가 open인지 확인하는 메소드
 		Meetings meeting = getStatusCheck(request.getMeetingId());
+		Users users = usersRepository.findById(userId).orElse(null);
 		
-		if (userId == null) {
-			System.out.println("로그인이 필요합니다.");
-	        return;
-	    }
 		
 		// 1. 존재하는 모임인지
 		// 2. 모집상태가 open인지 체크
@@ -71,17 +71,18 @@ public class JoinRequestsServiceImpl implements JoinRequestsService {
 		}
 		
 		// 5. 중복 신청 방지(?)                             존재하는지 이 모임에 이 유저가
-		boolean alreadyApplied = joinRequestsRepository.existsByMeeting_IdAndUserId(request.getMeetingId(), userId);
+		boolean alreadyApplied = joinRequestsRepository.existsByMeeting_IdAndUserId_Id(request.getMeetingId(), userId);
 		
 		if(alreadyApplied) {
 			 System.out.println("이미 신청한 모임입니다.");
 	         return;
 		}
 		
+		
 		// 6. 신청 생성 Entity로 변환해서 저장
 		JoinRequests joinRequest = JoinRequests.builder()
 							      .meeting(meeting)
-							      .userId(userId)
+							      .userId(users)
 							      .memberCount(request.getMemberCount())
 							      .phoneNumber(request.getPhoneNumber())
 							      .message(request.getMessage())
@@ -101,13 +102,13 @@ public class JoinRequestsServiceImpl implements JoinRequestsService {
 			return new ArrayList<>();
 		}
 		
-		List<JoinRequests> entityList = joinRequestsRepository.findByUserIdOrderByIdDesc(userId);
+		List<JoinRequests> entityList = joinRequestsRepository.findByUserId_IdOrderByIdDesc(userId);
 		List<ResJoinDTO> dtoList = new ArrayList<>();
 		
 		for(JoinRequests j : entityList) {
 			ResJoinDTO response = ResJoinDTO.builder()
 								  .id(j.getId())
-								  .userId(j.getUserId())
+								  .userId(j.getUserId().getId())
 								  .meetingId(j.getMeeting().getId())
 								  .status(j.getStatus())
 								  .createdAt(j.getCreatedAt())
