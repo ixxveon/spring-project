@@ -1,7 +1,6 @@
-package kr.co.spring_project.meetings.entity;
+package kr.co.spring_project.meetings.domain;
 
 public enum MeetingsStatus {
 	OPEN,
 	CLOSED
-
 }

@@ -1,8 +1,5 @@
 package kr.co.spring_project.join.dto;
 
-import java.time.LocalDateTime;
-
-import kr.co.spring_project.join.entity.JoinRequests;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

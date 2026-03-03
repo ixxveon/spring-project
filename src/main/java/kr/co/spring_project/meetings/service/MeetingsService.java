@@ -1,26 +1,12 @@
 package kr.co.spring_project.meetings.service;
 
-import java.util.List;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import kr.co.spring_project.meetings.entity.Meetings;
-import kr.co.spring_project.meetings.repository.MeetingsRepository;
+import kr.co.spring_project.meetings.dto.ReqBoardDTO;
 
 
-@Service
-@Transactional(readOnly = true)
-public class MeetingsService {
+public interface MeetingsService {
 	
-	private final MeetingsRepository meetingsRepository;
+	public void create(ReqBoardDTO request, Long userId);
 	
-	public MeetingsService(kr.co.spring_project.meetings.repository.MeetingsRepository meetingsRepository) {
-		this.meetingsRepository = meetingsRepository;
-	}
-	
-	public List<Meetings> list() {
-		return meetingsRepository.findAllByOrderByCreatedAtDesc();
-	}
 	
 
 }

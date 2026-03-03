@@ -6,25 +6,35 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
-import jakarta.persistence.Table;
+import jakarta.persistence.ManyToOne;
+import kr.co.spring_project.meetings.domain.MeetingsStatus;
+import kr.co.spring_project.users.entity.Users;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Table(name = "Meetings")
+@Builder
 public class Meetings {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	
-	@Column(name = "user_id", nullable = false)
-	private Long userid;
+	// user 테이블이랑 조인 (작성자 회원 Id)
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "user_id", nullable = false)
+	private Users writer;  
 	
 	@Column(nullable = false, length = 120)
 	private String title;
@@ -44,7 +54,6 @@ public class Meetings {
 	@Column(nullable = false)
 	private Integer capacity;
 	
-	
 	@Lob
 	@Column(nullable = false)
 	private String content;
@@ -52,6 +61,9 @@ public class Meetings {
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false, length = 10)
     private MeetingsStatus status = MeetingsStatus.OPEN;
+	
+	@Column(name = "view_count", nullable = false)
+	private Integer viewCount;
 	
 	@Column(name = "created_at", nullable = false)
 	private LocalDateTime createdAt;
